@@ -19,7 +19,7 @@ class ClosePresenter extends BasePresenter {
     }
 
     public function authorizedTable() {
-        $this->setAuthorized($this->getEventAuthorizator()->isAllowed('fyziklani', 'close', $this->getCurrentEvent()));
+        $this->setAuthorized($this->eventIsAllowed('fyziklani', 'close'));
     }
 
     public function authorizedTeam() {
@@ -71,10 +71,10 @@ class ClosePresenter extends BasePresenter {
         $form->setRenderer(new BootstrapRenderer());
         $form->addHidden('e_fyziklani_team_id', 0);
         $form->addCheckbox('submit_task_correct', _('Úkoly a počty bodů jsou správně.'))
-            ->setRequired(_('Zkontrolujte správnost zadání bodů!'));
+                ->setRequired(_('Zkontrolujte správnost zadání bodů!'));
         $form->addText('next_task', _('Úloha u vydavačů'))->setDisabled();
         $form->addCheckbox('next_task_correct', _('Úloha u vydavačů se shoduje.'))
-            ->setRequired(_('Zkontrolujte prosím shodnost úlohy u vydavačů'));
+                ->setRequired(_('Zkontrolujte prosím shodnost úlohy u vydavačů'));
         $form->addSubmit('send', 'Potvrdit správnost');
         $form->onSuccess[] = [$this, 'closeFormSucceeded'];
         return $form;
